@@ -1,0 +1,132 @@
+
+<div class="container d-flex justify-content-center align-items-center">
+  <form>
+    <div class="card shadow-lg mx-auto" style="background-color: #f8f9fa; border: 0;">
+      <div class="card-body">
+        <h1 class="text-center mb-4" style="color: #333;">Register a Hairstyle</h1>
+
+        <!-- Tabs Navigation -->
+        <ul class="nav nav-tabs mb-4" id="formTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active text-dark fw-bold" id="step1-tab" data-bs-toggle="tab" data-bs-target="#step1" type="button" role="tab">
+              Hairstyle
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-dark fw-bold" id="step2-tab" data-bs-toggle="tab" data-bs-target="#step2" type="button" role="tab">
+              Hairdresser
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-dark fw-bold" id="step3-tab" data-bs-toggle="tab" data-bs-target="#step3" type="button" role="tab">
+              Pricing
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-dark fw-bold" id="step4-tab" data-bs-toggle="tab" data-bs-target="#step4" type="button" role="tab">
+              Appointments
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-dark fw-bold" id="step5-tab" data-bs-toggle="tab" data-bs-target="#step5" type="button" role="tab">
+              Summary
+            </button>
+          </li>
+        </ul>
+
+        <!-- Tabs Content -->
+        <div class="tab-content">
+          <!-- Step 1: Hairstyle Details -->
+          <div class="tab-pane fade show active" id="step1" role="tabpanel">
+            <h3 class="mb-3" style="color: #333;">Hairstyle Details</h3>
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Hairstyle Name..." required style="background-color: #fff; border-color: #ddd;">
+            </div>
+            <div class="mb-3">
+              <textarea class="form-control" rows="3" placeholder="Description of the hairstyle..." required style="background-color: #fff; border-color: #ddd;"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="images" class="form-label" style="color: #333;">Upload Hairstyle Images (max 4):</label>
+              <input type="file" class="form-control" id="images" accept="image/*" multiple required style="background-color: #fff; border-color: #ddd;">
+            </div>
+          </div>
+
+          <!-- Step 2: Hairdresser Info -->
+          <div class="tab-pane fade" id="step2" role="tabpanel">
+            <h3 class="mb-3" style="color: #333;">Select Hairdresser</h3>
+            <div class="mb-3">
+              <select class="form-select" required style="background-color: #fff; border-color: #ddd;">
+                <option value="" disabled selected>Select a hairdresser</option>
+                <option value="1">Hairdresser 1</option>
+                <option value="2">Hairdresser 2</option>
+                <option value="3">Hairdresser 3</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Step 3: Pricing -->
+          <div class="tab-pane fade" id="step3" role="tabpanel">
+            <h3 class="mb-3" style="color: #333;">Pricing</h3>
+            <div class="mb-3">
+              <input type="number" class="form-control" placeholder="Price in $" required style="background-color: #fff; border-color: #ddd;">
+            </div>
+          </div>
+
+          <!-- Step 4: Appointment Info -->
+          <div class="tab-pane fade" id="step4" role="tabpanel">
+            <h3 class="mb-3" style="color: #333;">Appointment Info</h3>
+            <div class="mb-3">
+              <input type="date" class="form-control" required style="background-color: #fff; border-color: #ddd;">
+            </div>
+            <div class="mb-3">
+              <input type="time" class="form-control" required style="background-color: #fff; border-color: #ddd;">
+            </div>
+          </div>
+
+          <!-- Step 5: Summary -->
+          <div class="tab-pane fade" id="step5" role="tabpanel">
+            <h3 class="mb-4 text-center" style="color: #333;">Summary</h3>
+            <div class="row">
+              <!-- Left Column: Uploaded Images -->
+              <div class="col-12 col-md-6 mb-3">
+                <h5 class="text-center" style="color: #333;">Uploaded Images</h5>
+                <div class="d-flex flex-wrap justify-content-center gap-4">
+                  <img src="#" id="img1" class="img-thumbnail" alt="Image 1" style="width: 200px; height: 150px; object-fit: cover;">
+                  <img src="#" id="img2" class="img-thumbnail" alt="Image 2" style="width: 200px; height: 150px; object-fit: cover;">
+                  <img src="#" id="img3" class="img-thumbnail" alt="Image 3" style="width: 200px; height: 150px; object-fit: cover;">
+                  <img src="#" id="img4" class="img-thumbnail" alt="Image 4" style="width: 200px; height: 150px; object-fit: cover;">
+                </div>
+              </div>
+
+              <!-- Vertical Separator -->
+              <div class="col-1 d-flex justify-content-center align-items-center d-none d-md-block">
+                <div style="width: 2px; background-color: #ddd; height: 100%;"></div>
+              </div>
+
+              <!-- Right Column: Hairstyle Details -->
+              <div class="col-12 col-md-5 mb-3">
+                <h5 class="text-center" style="color: #333;">Hairstyle Details</h5>
+                <div class="card shadow-sm p-3" style="background-color: #fff; border-color: #ddd;">
+                  <div class="card-body">
+                    <p class="mb-2"><strong>Hairstyle Name:</strong> <span id="summary-hairstyle-name">Elegant Waves</span></p>
+                    <p class="mb-2"><strong>Description:</strong> <span id="summary-description">Stylish waves perfect for any occasion.</span></p>
+                    <p class="mb-2"><strong>Hairdresser:</strong> <span id="summary-hairdresser">John Doe</span></p>
+                    <p class="mb-2"><strong>Price:</strong> <span id="summary-price">$50</span></p>
+                    <p class="mb-2"><strong>Appointment Date:</strong> <span id="summary-date">12/12/2024</span></p>
+                    <p class="mb-2"><strong>Appointment Time:</strong> <span id="summary-time">2:00 PM</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-4 text-center">
+              <button type="submit" class="btn btn-outline-danger btn-lg w-50 w-md-50">Register</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+

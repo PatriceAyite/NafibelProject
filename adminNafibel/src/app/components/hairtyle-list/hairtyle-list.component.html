@@ -1,0 +1,113 @@
+<div class="container mt-5">
+  <!-- Table displaying Hairstyle Information -->
+  <h1 class="text-center mb-5">HaireStyles</h1>
+
+    <button class="btn btn-danger fw-bold  mb-2">New HairStyle</button>
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Hairstyle Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Hairdresser</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Elegant Waves</td>
+      <td>Stylish waves perfect for any occasion.</td>
+      <td>$50</td>
+      <td>John Doe</td>
+      <td>
+        <button class="btn btn-outline-dark btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+        <button class="btn btn-outline-danger btn-sm">Delete</button>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Curly Chic</td>
+      <td>Perfect curls for a bold statement.</td>
+      <td>$40</td>
+      <td>Jane Smith</td>
+      <td>
+        <button class="btn btn-outline-dark btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+        <button class="btn btn-outline-danger btn-sm">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Modal for Editing Hairstyle -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Edit Hairstyle</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <!-- Left Column: Hairstyle Images -->
+              <div class="col-md-6">
+                <h5 class="text-center mb-3">Images</h5>
+                <div class="row">
+                  <!-- Image 1 -->
+                  <div class="col-6 mb-3">
+                    <img src="#" id="img1" class="img-fluid border border-dark" alt="Image 1" style="width: 100%; height: auto; object-fit: cover;">
+                  </div>
+                  <!-- Image 2 -->
+                  <div class="col-6 mb-3">
+                    <img src="#" id="img2" class="img-fluid border border-dark" alt="Image 2" style="width: 100%; height: auto; object-fit: cover;">
+                  </div>
+                </div>
+                <div class="row">
+                  <!-- Image 3 -->
+                  <div class="col-6 mb-3">
+                    <img src="#" id="img3" class="img-fluid border border-dark" alt="Image 3" style="width: 100%; height: auto; object-fit: cover;">
+                  </div>
+                  <!-- Image 4 -->
+                  <div class="col-6 mb-3">
+                    <img src="#" id="img4" class="img-fluid border border-dark" alt="Image 4" style="width: 100%; height: auto; object-fit: cover;">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Column: Hairstyle Details -->
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="hairstyleName" class="form-label">Hairstyle Name</label>
+                  <input type="text" class="form-control border-dark" id="hairstyleName" value="Elegant Waves">
+                </div>
+                <div class="mb-3">
+                  <label for="hairstyleDescription" class="form-label">Description</label>
+                  <textarea class="form-control border-dark" id="hairstyleDescription" rows="3">Stylish waves perfect for any occasion.</textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="hairstylePrice" class="form-label">Price</label>
+                  <input type="number" class="form-control border-dark" id="hairstylePrice" value="50">
+                </div>
+                <div class="mb-3">
+                  <label for="hairstyleHairdresser" class="form-label">Hairdresser</label>
+                  <select class="form-select border-dark" id="hairstyleHairdresser">
+                    <option selected>John Doe</option>
+                    <option>Jane Smith</option>
+                    <option>Mark Taylor</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-outline-danger">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
