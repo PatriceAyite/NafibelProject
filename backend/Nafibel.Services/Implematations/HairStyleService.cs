@@ -26,7 +26,7 @@ namespace Nafibel.Services.Implematations
 
         
 
-        public async Task<HairStyleDto?> CreateHairStyle (CreateHairStyleRequestDto request)
+        public async Task<Result<HairStyleDto>?> CreateHairStyle (CreateHairStyleRequestDto request)
         {
             try
             {
@@ -64,12 +64,12 @@ namespace Nafibel.Services.Implematations
 
 
 
-                return response;
+                return new Result<HairStyleDto>(true) { Model = response};
 
             }catch (Exception ex)
             {
                 _logger.LogError(ex, "CreateHiarStyle");
-                return null;
+                return new Result<HairStyleDto>(false, "Saving Error");
             }
         }
 
