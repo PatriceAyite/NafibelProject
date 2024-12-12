@@ -11,7 +11,8 @@ namespace Nafibel.Services.Interfaces
     public interface IHairStyleService
     {
         Task<Result<HairStyleDto>?> CreateHairStyle(CreateHairStyleRequestDto request);
-        Task<HairStyleDto> GetById(string id);
-        Task<List<HairStyleDto>> GetAll();
+        Task<Result<HairStyleDto>> GetById(Ulid id);
+        Task<Result> DeleteById(Ulid id);
+        Task<Result<List<HairStyleDto>>> GetAll();
     }
 }

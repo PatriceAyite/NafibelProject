@@ -18,15 +18,14 @@ namespace Nafibel.Services.Implematations
 
         private readonly ILogger<HairStyleService> _logger;
 
-        public HairStyleService(NafibelDbContext dbContext , ILogger<HairStyleService> logger)
+        public HairStyleService(NafibelDbContext dbContext, ILogger<HairStyleService> logger)
         {
             this._DbContext = dbContext;
             this._logger = logger;
         }
 
-        
 
-        public async Task<Result<HairStyleDto>?> CreateHairStyle (CreateHairStyleRequestDto request)
+        public async Task<Result<HairStyleDto>?> CreateHairStyle(CreateHairStyleRequestDto request)
         {
             try
             {
@@ -35,8 +34,8 @@ namespace Nafibel.Services.Implematations
                 {
                     Id = Ulid.NewUlid(),
                     Name = request.Name,
-                    Sex = request.Sex,  
-                    AverageTime = request.AverageTime,  
+                    Sex = request.Sex,
+                    AverageTime = request.AverageTime,
                     CreatedBy = request.CreatedBy,
                     CreatedOn = request.CreatedOn,
                     Description = request.Description,
@@ -50,8 +49,8 @@ namespace Nafibel.Services.Implematations
                 };
 
                 _DbContext.HairStyles.Add(harStyle);
-                await  _DbContext.SaveChangesAsync();
-                
+                await _DbContext.SaveChangesAsync();
+
 
                 var response = new HairStyleDto()
                 {
@@ -62,25 +61,103 @@ namespace Nafibel.Services.Implematations
                     Description = harStyle.Description,
                 };
 
+                return new Result<HairStyleDto>(true) { Model = response };
 
-
-                return new Result<HairStyleDto>(true) { Model = response};
-
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "CreateHiarStyle");
                 return new Result<HairStyleDto>(false, "Saving Error");
             }
         }
 
-        public Task<List<HairStyleDto>> GetAll()
+
+        public async Task<Result<List<HairStyleDto>>> GetAll()
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                _logger.LogInformation("Get HairStyles from db");
+                var hairStyles = await _DbContext.HairStyles.ToListAsync();
+
+
+                var list= hairStyles.Select(hairStyle => new HairStyleDto()
+                {
+                    id = hairStyle.Id.ToString(),
+                    Name = hairStyle.Name,
+                    Sex = hairStyle.Sex,
+                    AverageTime = hairStyle.AverageTime,
+                    Description = hairStyle.Description,
+                });
+
+                return new Result< List<HairStyleDto>>(true) { Model = list.ToList() };
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "GetAll");
+                return new Result<List<HairStyleDto>>(false, "Error fetching from db");
+            }
         }
 
-        public Task<HairStyleDto> GetById(string id)
+        public async Task<Result<HairStyleDto>> GetById(Ulid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _logger.LogInformation("Get HairStyle from db");
+                var hairStyle = await _DbContext.HairStyles.FindAsync(id);
+                if (hairStyle == null)
+                {
+                    return new Result<HairStyleDto>(false, $"HairStyle with Id {id} not found");
+
+                }
+
+                var response = new HairStyleDto()
+                {
+                    id = hairStyle.Id.ToString(),
+                    Name = hairStyle.Name,
+                    Sex = hairStyle.Sex,
+                    AverageTime = hairStyle.AverageTime,
+                    Description = hairStyle.Description,
+                };
+
+
+
+                return new Result<HairStyleDto>(true) { Model = response };
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "CreateHiarStyle");
+                return new Result<HairStyleDto>(false, "Error fecthing db");
+            }
+        }
+
+        public async Task<Result> DeleteById(Ulid id)
+        {
+            try
+            {
+                _logger.LogInformation("Delete HairStyle from db");
+                var hairStyle = await _DbContext.HairStyles.FindAsync(id);
+                if (hairStyle == null)
+                {
+                    return new Result<HairStyleDto>(false, $"HairStyle with Id {id} not found");
+
+                }
+
+               _DbContext.HairStyles.Remove(hairStyle);
+               await _DbContext.SaveChangesAsync();
+               
+
+
+                return new Result<HairStyleDto>(true) {};
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Delete");
+                return new Result<HairStyleDto>(false, "Error delete db");
+            }
         }
     }
 }

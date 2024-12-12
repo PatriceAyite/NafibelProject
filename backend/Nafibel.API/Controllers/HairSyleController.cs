@@ -33,6 +33,47 @@ namespace Nafibel.API.Controllers
         }
 
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Ulid id)
+        {
+
+            var result = await this._hairStyleService.GetById(id);
+
+            if (!result.Success)
+            {
+                return NotFound(result.Errror);
+            }
+            return Ok(result.Model);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery]string? token)
+        {
+
+            var result = await this._hairStyleService.GetAll();
+
+            if (!result.Success)
+            {
+                return NotFound(result.Errror);
+            }
+            return Ok(result.Model);
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteById(Ulid id)
+        {
+
+            var result = await this._hairStyleService.DeleteById(id);
+
+            if (!result.Success)
+            {
+                return NotFound(result.Errror);
+            }
+            return Ok();
+        }
+
 
     }
 }

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Nafibel.Data.Model
 {
+    [Index(nameof(Name), IsUnique = true)]
     public class HairStyle : TrackedModel
     {
         [Key]
