@@ -10,7 +10,7 @@ namespace Nafibel.Services.Interfaces
 {
     public interface IHairStyleService
     {
-        Task<HairStyleDto?> CreateHairStyle (CreateHairStyleRequestDto request);
+        Task<Result<HairStyleDto>?> CreateHairStyle(CreateHairStyleRequestDto request);
         Task<HairStyleDto> GetById(string id);
         Task<List<HairStyleDto>> GetAll();
     }

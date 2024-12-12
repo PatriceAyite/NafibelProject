@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Nafibel.Services.Dtos;
 using Nafibel.Services.Interfaces;
@@ -22,10 +23,15 @@ namespace Nafibel.API.Controllers
         public async Task<IActionResult> CreateHairStyle(CreateHairStyleRequestDto request)
         {
 
-           var response = await this._hairStyleService.CreateHairStyle(request);
+            var result = await this._hairStyleService.CreateHairStyle(request);
 
-            return Ok(request);
+            if (!result.Success)
+            {
+                return BadRequest(result.Errror);
+            } 
+            return Ok(result.Model);
         }
+
 
 
     }
