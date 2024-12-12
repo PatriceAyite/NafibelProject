@@ -24,7 +24,7 @@ namespace Nafibel.Services.Implematations
             this._logger = logger;
         }
 
-
+        //Create HairStyle
         public async Task<Result<HairStyleDto>?> CreateHairStyle(CreateHairStyleRequestDto request)
         {
             try
@@ -71,7 +71,7 @@ namespace Nafibel.Services.Implematations
             }
         }
 
-
+        // Get all of HairStyle
         public async Task<Result<List<HairStyleDto>>> GetAll()
         {
 
@@ -99,7 +99,7 @@ namespace Nafibel.Services.Implematations
                 return new Result<List<HairStyleDto>>(false, "Error fetching from db");
             }
         }
-
+        //GetById of HairStyle
         public async Task<Result<HairStyleDto>> GetById(Ulid id)
         {
             try
@@ -132,7 +132,7 @@ namespace Nafibel.Services.Implematations
                 return new Result<HairStyleDto>(false, "Error fecthing db");
             }
         }
-
+        //Delete HairStyles
         public async Task<Result> DeleteById(Ulid id)
         {
             try
