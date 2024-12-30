@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Nafibel.Data.Model;
 using Nafibel.Data.Repositories;
@@ -30,7 +30,7 @@ namespace Nafibel.Services.Implematations
             try
             {
                 _logger.LogInformation("Creating HairStyle to Database");
-                var harStyle = new HairStyle()
+                var hairStyle = new HairStyle()
                 {
                     Id = Ulid.NewUlid(),
                     Name = request.Name,
@@ -48,25 +48,18 @@ namespace Nafibel.Services.Implematations
 
                 };
 
-                _DbContext.HairStyles.Add(harStyle);
+                _DbContext.HairStyles.Add(hairStyle);
                 await _DbContext.SaveChangesAsync();
 
 
-                var response = new HairStyleDto()
-                {
-                    id = harStyle.Id.ToString(),
-                    Name = harStyle.Name,
-                    Sex = harStyle.Sex,
-                    AverageTime = harStyle.AverageTime,
-                    Description = harStyle.Description,
-                };
+                var response = new HairStyleDto(hairStyle);
 
                 return new Result<HairStyleDto>(true) { Model = response };
 
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "CreateHiarStyle");
+                _logger.LogError(ex, "CreateHairStyle");
                 return new Result<HairStyleDto>(false, "Saving Error");
             }
         }
@@ -81,14 +74,7 @@ namespace Nafibel.Services.Implematations
                 var hairStyles = await _DbContext.HairStyles.ToListAsync();
 
 
-                var list= hairStyles.Select(hairStyle => new HairStyleDto()
-                {
-                    id = hairStyle.Id.ToString(),
-                    Name = hairStyle.Name,
-                    Sex = hairStyle.Sex,
-                    AverageTime = hairStyle.AverageTime,
-                    Description = hairStyle.Description,
-                });
+                var list= hairStyles.Select(hairStyle => new HairStyleDto(hairStyle));
 
                 return new Result< List<HairStyleDto>>(true) { Model = list.ToList() };
 
@@ -100,36 +86,28 @@ namespace Nafibel.Services.Implematations
             }
         }
         //GetById of HairStyle
-        public async Task<Result<HairStyleDto>> GetById(Ulid id)
+        public async Task<Result<HairStyleDtoWithPrices>> GetById(Ulid id)
         {
             try
             {
                 _logger.LogInformation("Get HairStyle from db");
-                var hairStyle = await _DbContext.HairStyles.FindAsync(id);
+                var hairStyle = await _DbContext.HairStyles.Include(h=>h.HairStylePrices).FirstOrDefaultAsync(h=>h.Id==id);
                 if (hairStyle == null)
                 {
-                    return new Result<HairStyleDto>(false, $"HairStyle with Id {id} not found");
+                    return new Result<HairStyleDtoWithPrices>(false, $"HairStyle with Id {id} not found");
 
                 }
 
-                var response = new HairStyleDto()
-                {
-                    id = hairStyle.Id.ToString(),
-                    Name = hairStyle.Name,
-                    Sex = hairStyle.Sex,
-                    AverageTime = hairStyle.AverageTime,
-                    Description = hairStyle.Description,
-                };
+                var response = new HairStyleDtoWithPrices(hairStyle);
 
 
-
-                return new Result<HairStyleDto>(true) { Model = response };
+                return new Result<HairStyleDtoWithPrices>(true) { Model = response };
 
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "CreateHiarStyle");
-                return new Result<HairStyleDto>(false, "Error fecthing db");
+                return new Result<HairStyleDtoWithPrices>(false, "Error fecthing db");
             }
         }
         //Delete HairStyles

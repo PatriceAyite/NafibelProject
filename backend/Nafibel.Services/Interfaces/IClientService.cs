@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Nafibel.Services.Interfaces
 {
-    public interface IHairStyleService
+    public interface IClientService
     {
-        Task<Result<HairStyleDto>?> CreateHairStyle(CreateHairStyleRequestDto request);
-        Task<Result<HairStyleDtoWithPrices>> GetById(Ulid id);
+        Task<Result<ClientDto>> CreateClient(CreateClientRequestDto request);
+        Task<Result<List<ClientDto>>> GetAll();
+        Task<Result<ClientDto>> GetById(Ulid id);
         Task<Result> DeleteById(Ulid id);
-        Task<Result<List<HairStyleDto>>> GetAll();
     }
 }

@@ -12,7 +12,7 @@ namespace Nafibel.Data.Model
 
         [Required]
         public Ulid HairStyleId { get; set; }
-        public HairStyle HairStyle { get; set; }
+        public HairStyle? HairStyle { get; set; }
 
         [Required]
         public byte Order { get; set; }

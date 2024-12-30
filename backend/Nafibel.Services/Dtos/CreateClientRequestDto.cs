@@ -11,8 +11,10 @@ using System.Threading.Tasks;
 
 namespace Nafibel.Services.Dtos
 {
-    public class CreateHairDresserRequestDto
+    public class CreateClientRequestDto
     {
+        [Key]
+        public string? Id { get; set; }
 
         [EmailAddress]
         [Required]
@@ -26,35 +28,26 @@ namespace Nafibel.Services.Dtos
         [Required]
         [Unicode(true)]
         [MaxLength(255)]
-        public string LastName { get; set; }
-        = string.Empty;
+        public string LastName { get; set; } = string.Empty;
 
         [Unicode(true)]
         [MaxLength(255)]
         public string MiddleName { get; set; } = string.Empty;
 
-
         [MaxLength(30)]
         public string PhoneNumber { get; set; } = string.Empty;
 
-        public HaireDresserTypeEnum type { get; set; }
-
         [MaxLength(10)]
         public string CountryCode { get; set; } = "CA";
+
         public string? State { get; set; }
-        public string Region { get; set; } = null;
+        public string Region { get; set; } = string.Empty;
 
-        public Point? Location { get; set; }
+        public System.Drawing.Point Location { get; set; } = default!;
 
-        public DateTime? Dob { get; set; }
+        public AgeRangeNum AgeRange { get; set; }
 
-        public string? ProfileImage { get; set; }
-
-        [MaxLength(4000)]
-        public string? ProfileText { get; set; }
-        public string CreatedBy { get; set; } = string.Empty;
-
-        [Required]
-        public DateTime CreatedOn { get; set; }
+        public string CreatedBy { get; set; } = string.Empty; // Propriété ajoutée
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow; // Propriété ajoutée
     }
 }

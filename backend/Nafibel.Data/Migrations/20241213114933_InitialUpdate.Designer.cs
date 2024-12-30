@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nafibel.Data.Repositories;
 using NetTopologySuite.Geometries;
@@ -12,9 +13,11 @@ using NetTopologySuite.Geometries;
 namespace Nafibel.Data.Migrations
 {
     [DbContext(typeof(NafibelDbContext))]
-    partial class NafibelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241213114933_InitialUpdate")]
+    partial class InitialUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,13 +310,6 @@ namespace Nafibel.Data.Migrations
                 {
                     b.Property<byte[]>("Id")
                         .HasColumnType("varbinary(16)");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");

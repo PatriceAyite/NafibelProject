@@ -15,6 +15,8 @@ namespace Nafibel.Data.Model
         [MaxLength(4000)]
         public string? ProfileText { get; set;}
 
+        public HaireDresserTypeEnum type { get; set; }
+
 
         public List<HairdresserHairStyle> HairStyles { get; set; } = new List<HairdresserHairStyle>();
 

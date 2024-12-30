@@ -8,12 +8,12 @@ namespace Nafibel.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HairSyleController : ControllerBase
+    public class HairStyleController : ControllerBase
     {
-
-        private readonly ILogger<HairSyleController> _logger;
+            
+        private readonly ILogger<HairStyleController> _logger;
         private readonly IHairStyleService _hairStyleService;
-        public HairSyleController(ILogger<HairSyleController> logger, IHairStyleService hairStyleService )
+        public HairStyleController(ILogger<HairStyleController> logger, IHairStyleService hairStyleService )
         {
             this._logger = logger;   
             this._hairStyleService = hairStyleService;

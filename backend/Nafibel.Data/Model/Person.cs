@@ -52,6 +52,6 @@ namespace Nafibel.Data.Model
         public string? State { get; set; }
         public string Region { get; set; } = null;
 
-        public Point? Location { get; set; }
+        public Point Location { get; set; }
     }
 }

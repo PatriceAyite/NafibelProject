@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nafibel.Data.Repositories;
 using NetTopologySuite.Geometries;
@@ -12,9 +13,11 @@ using NetTopologySuite.Geometries;
 namespace Nafibel.Data.Migrations
 {
     [DbContext(typeof(NafibelDbContext))]
-    partial class NafibelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241218161128_HairStyleLink")]
+    partial class HairStyleLink
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,6 +142,7 @@ namespace Nafibel.Data.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<Point>("Location")
+                        .IsRequired()
                         .HasColumnType("geography");
 
                     b.Property<string>("MiddleName")
@@ -401,6 +405,7 @@ namespace Nafibel.Data.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<Point>("Location")
+                        .IsRequired()
                         .HasColumnType("geography");
 
                     b.Property<string>("MiddleName")

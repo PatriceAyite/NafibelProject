@@ -31,5 +31,12 @@ namespace Nafibel.Data.Model
         Curly,
         Coily
     }
+
+    public enum HaireDresserTypeEnum
+    {
+        Salon,
+        Individual
+    }
+
 }
 

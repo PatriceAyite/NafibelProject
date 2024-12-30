@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nafibel.Data.Model;
+using System.Reflection.Metadata;
 using static Nafibel.Data.Repositories.UildConverter;
 
 namespace Nafibel.Data.Repositories
@@ -55,6 +56,18 @@ namespace Nafibel.Data.Repositories
                 .Properties<Ulid>()
                 .HaveConversion<UlidToStringConverter>()
                 .HaveConversion<UlidToBytesConverter>();
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<HairStyle>()
+            .HasMany(e => e.HairStylePrices)
+            .WithOne(e => e.HairStyle)
+            .HasForeignKey(e => e.HairStyleId)
+            .IsRequired();
         }
     }
 }
