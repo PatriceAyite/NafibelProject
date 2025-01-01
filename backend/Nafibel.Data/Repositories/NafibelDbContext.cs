@@ -68,6 +68,21 @@ namespace Nafibel.Data.Repositories
             .WithOne(e => e.HairStyle)
             .HasForeignKey(e => e.HairStyleId)
             .IsRequired();
+
+            ////Location
+
+            modelBuilder.Entity<Hairdresser>(entity =>
+            {
+                entity.Property(e => e.Location).HasColumnType("geography");
+            });
+
+            modelBuilder.Entity<Appointment>(entity =>
+            {
+                entity.Property(e => e.Location).HasColumnType("geography");
+            });
         }
+
+        
+
     }
 }

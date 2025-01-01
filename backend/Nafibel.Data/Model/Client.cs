@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Nafibel.Data.Model
 {
+    [Index(nameof(Email), IsUnique = true)]
     public class Client : Person
     {
         public AgeRangeNum AgeRange { get; set; }

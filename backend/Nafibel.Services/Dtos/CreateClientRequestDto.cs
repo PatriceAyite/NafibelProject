@@ -47,7 +47,7 @@ namespace Nafibel.Services.Dtos
 
         public AgeRangeNum AgeRange { get; set; }
 
-        public string CreatedBy { get; set; } = string.Empty; // Propriété ajoutée
-        public DateTime CreatedOn { get; set; } = DateTime.UtcNow; // Propriété ajoutée
+        public string CreatedBy { get; set; } = string.Empty; 
+        public DateTime CreatedOn { get; set; }
     }
 }

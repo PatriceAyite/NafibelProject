@@ -52,16 +52,9 @@ namespace Nafibel.Services.Implematations
                 _DbContext.HairStyleNameLocales.Add(hairStyleNameLocale);
                 await _DbContext.SaveChangesAsync();
 
-                
-                var response = new HairStyleNameLocaleDto
-                {
-                    Id = hairStyleNameLocale.Id.ToString(),
-                    Description = hairStyleNameLocale.Description,
-                    Locale = hairStyleNameLocale.Locale,
-                    Name = hairStyleNameLocale.Name,
-                    HairstyleId = hairStyleNameLocale.HairstyleId,
-                    HairStyle = null 
-                };
+
+                var response = new HairStyleNameLocaleDto(hairStyleNameLocale);
+               
 
                 return new Result<HairStyleNameLocaleDto>(true) { Model = response };
             }
@@ -104,15 +97,8 @@ namespace Nafibel.Services.Implematations
                 _logger.LogInformation("Get HairStyles from db");
                 var hairStyleNameLocal = await _DbContext.HairStyleNameLocales.ToListAsync();
 
-                var list = hairStyleNameLocal.Select(hairStyleNameLocal => new HairStyleNameLocaleDto()
-                {
-                    Id = hairStyleNameLocal.Id.ToString(),
-                    Description = hairStyleNameLocal.Description,
-                    Locale = hairStyleNameLocal.Locale,
-                    Name = hairStyleNameLocal.Name,
-                    HairstyleId = hairStyleNameLocal.HairstyleId,
-                    HairStyle = hairStyleNameLocal.HairStyle,
-                });
+                var list = hairStyleNameLocal.Select(hairStyleNameLocal => new HairStyleNameLocaleDto(hairStyleNameLocal));
+               
 
                 return new Result<List<HairStyleNameLocaleDto>>(true) { Model = list.ToList() };
 
@@ -136,15 +122,8 @@ namespace Nafibel.Services.Implematations
                     return new Result<HairStyleNameLocaleDto>(false, $"HairStyleNameLocal {id}");
                 }
 
-                var response = new HairStyleNameLocaleDto()
-                {
-                    Id = hairStyleNameLocal.Id.ToString(),
-                    Description = hairStyleNameLocal.Description,
-                    Locale = hairStyleNameLocal.Locale,
-                    Name = hairStyleNameLocal.Name,
-                    HairstyleId = hairStyleNameLocal.HairstyleId,
-                    HairStyle = hairStyleNameLocal.HairStyle,
-                };
+                var response = new HairStyleNameLocaleDto(hairStyleNameLocal);
+        
 
                 return new Result<HairStyleNameLocaleDto>(true) { Model = response };
 

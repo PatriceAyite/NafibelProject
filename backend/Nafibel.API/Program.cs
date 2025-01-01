@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Nafibel.Data.Model;
 using Nafibel.Data.Repositories;
 using Nafibel.Services.Implematations;
+using Nafibel.Services.Implementations;
 using Nafibel.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,7 @@ builder.Services.AddScoped<IHairStyleNameLocaleService, HairStyleNameLocaleServi
 
 builder.Services.AddScoped<IClientService, ClientService>();
 
+builder.Services.AddScoped<IAppointment,  AppointmentService>();
 
 builder.Services.AddHealthChecks().AddSqlServer(conStr); ;
 

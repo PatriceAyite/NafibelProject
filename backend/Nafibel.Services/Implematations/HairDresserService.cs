@@ -4,6 +4,7 @@ using Nafibel.Data.Model;
 using Nafibel.Data.Repositories;
 using Nafibel.Services.Dtos;
 using Nafibel.Services.Interfaces;
+using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,43 +28,51 @@ namespace Nafibel.Services.Implematations
 
             try
             {
+                _logger.LogInformation("Creating HairDresser in Database");
 
-                _logger.LogInformation("Creating HairDresser to Database");
+                Point? location = null;
 
+                if (request.Latitude.HasValue && request.Longitude.HasValue)
+                {
+                    location = new Point(request.Longitude.Value, request.Latitude.Value) { SRID = 4326 }; // WGS84
+                }
 
-                var hairdresser = new Hairdresser()
+                var hairdresser = new Hairdresser
                 {
                     Id = Ulid.NewUlid(),
                     FirstName = request.FirstName,
                     LastName = request.LastName,
-                    MiddleName = request.MiddleName,
                     Email = request.Email,
-                    ProfileImage = request.ProfileImage,
-                    ProfileText = request.ProfileText,
+                    MiddleName = request.MiddleName,
                     PhoneNumber = request.PhoneNumber,
-                    Region = request.Region,
+                    Region =request.Region,
                     State = request.State,
                     CountryCode = request.CountryCode,
                     Dob = request.Dob,
-                    ModifiedBy = request.CreatedBy,
-                    ModifiedOn = request.CreatedOn,
+                    ProfileImage = request.ProfileImage,
+                    ProfileText = request.ProfileText,
+                    Location = location,
                     IsActive = true,
                     type = request.type,
+                    CreatedBy = request.CreatedBy,
+                    CreatedOn = request.CreatedOn,
+                    ModifiedOn = request.CreatedOn,
+                    ModifiedBy = request.CreatedBy,
                 };
 
                 _DbContext.Hairdressers.Add(hairdresser);
                 await _DbContext.SaveChangesAsync();
 
-                var response = new HairDresserDto(hairdresser);
-                
-                return new Result<HairDresserDto>(true) { Model = response };
-
-            } catch (Exception ex)
-            {
-                _logger.LogError(ex, "CreateHairDresser");
-                return new Result<HairDresserDto>(false, "Saving Error");
+                return new Result<HairDresserDto>(true)
+                {
+                    Model = new HairDresserDto(hairdresser)
+                };
             }
-           
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error while creating HairDresser");
+                return new Result<HairDresserDto>(false, "Saving Error (Hairdresser is Allready exist!)");
+            }
         }
 
         public async Task<Result> DeleteById(Ulid id)
@@ -126,20 +135,8 @@ namespace Nafibel.Services.Implematations
 
                 }
 
-                var response = new HairDresserDto()
-                {
-                    id = hairDresser.Id,
-                    FirstName = hairDresser.FirstName,
-                    LastName = hairDresser.LastName,
-                    MiddleName = hairDresser.MiddleName,
-                    Email = hairDresser.Email,
-                    ProfileImage = hairDresser.ProfileImage,
-                    ProfileText = hairDresser.ProfileText,
-                    PhoneNumber = hairDresser.PhoneNumber,
-                    Region = hairDresser.Region,
-                    State = hairDresser.State,
-                    CountryCode = hairDresser.CountryCode,
-                };
+                var response = new HairDresserDto(hairDresser);
+               
 
                 return new Result<HairDresserDto>(true) { Model = response };
             }

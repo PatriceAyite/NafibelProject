@@ -56,5 +56,16 @@ namespace Nafibel.API.Controllers
             return Ok();
 
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Ulid id)
+        {
+            var result = await this._hairDresserService.GetById(id);
+            if (!result.Success)
+            {
+                return NotFound(result.Errror);
+            }
+            return Ok(result.Model);
+        }
     }
 }

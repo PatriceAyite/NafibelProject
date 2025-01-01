@@ -15,58 +15,42 @@ namespace Nafibel.Services.Dtos
 {
     public class HairDresserDto 
     {
-        public Ulid id { get; set; }
-        public string Email { get; set; } = string.Empty;
-
-       
+        public Ulid Id { get; set; }
         public string FirstName { get; set; } = string.Empty;
-
-        
-        public string LastName { get; set; }
-        = string.Empty;
-
+        public string LastName { get; set; } = string.Empty;
         public string MiddleName { get; set; } = string.Empty;
-
-
-        
-        public string PhoneNumber { get; set; } = string.Empty;
-
-        public HaireDresserTypeEnum type { get; set; }
-
-        
+        public string Email { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; }
         public string CountryCode { get; set; } = "CA";
         public string? State { get; set; }
-        public string Region { get; set; } = null;
-
-        public Point? Location { get; set; }
-
-        public DateTime? Dob { get; set; }
-
-      
+        public string? Region { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
         public string? ProfileImage { get; set; }
-
-       
         public string? ProfileText { get; set; }
+        public HaireDresserTypeEnum type { get; set; }
 
-        public HairDresserDto(Hairdresser hairdresser) 
+        public HairDresserDto(Hairdresser hairdresser)
         {
-            id = hairdresser.Id;
+            Id = hairdresser.Id;
             FirstName = hairdresser.FirstName;
             LastName = hairdresser.LastName;
             MiddleName = hairdresser.MiddleName;
             Email = hairdresser.Email;
-            Location = hairdresser.Location;
-            ProfileImage = hairdresser.ProfileImage;
-            ProfileText = hairdresser.ProfileText;
             PhoneNumber = hairdresser.PhoneNumber;
             Region = hairdresser.Region;
             State = hairdresser.State;
             CountryCode = hairdresser.CountryCode;
-            Dob = hairdresser.Dob;
+            ProfileImage = hairdresser.ProfileImage;
+            ProfileText = hairdresser.ProfileText;
             type = hairdresser.type;
-            Location = hairdresser.Location;
-        }
 
+            if (hairdresser.Location != null)
+            {
+                Latitude = hairdresser.Location.Y;
+                Longitude = hairdresser.Location.X;
+            }
+        }
         public HairDresserDto()
         {
 

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Nafibel.Data.Model
 {
+    [Index(nameof(Email), IsUnique = true)]
     public class Hairdresser : Person
     {
         public DateTime? Dob { get; set; }

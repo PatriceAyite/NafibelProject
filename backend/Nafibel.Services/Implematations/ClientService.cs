@@ -58,6 +58,8 @@ namespace Nafibel.Services.Implematations
                     Email = request.Email,
                     Location = location, 
                     IsActive = true,
+                    CreatedBy = request.CreatedBy,
+                    CreatedOn = request.CreatedOn,
                     ModifiedOn = request.CreatedOn,
                     ModifiedBy = request.CreatedBy
                 };
@@ -66,20 +68,9 @@ namespace Nafibel.Services.Implematations
                 _DbContext.Clients.Add(client);
                 await _DbContext.SaveChangesAsync();
 
+
+                var response = new ClientDto(client);
                
-                var response = new ClientDto
-                {
-                    AgeRange = client.AgeRange,
-                    CountryCode = client.CountryCode,
-                    FirstName = client.FirstName,
-                    LastName = client.LastName,
-                    MiddleName = client.MiddleName,
-                    PhoneNumber = client.PhoneNumber,
-                    State = client.State,
-                    Region = client.Region,
-                    Email = client.Email,
-                    Location = new System.Drawing.Point((int)client.Location.X, (int)client.Location.Y)
-                };
 
                 return new Result<ClientDto>(true) { Model = response };
             }
@@ -120,22 +111,10 @@ namespace Nafibel.Services.Implematations
                 _logger.LogInformation("Get HairDresser from db");
                 var clients = await _DbContext.Clients.ToListAsync();
 
-                var list = clients.Select(client => new ClientDto()
-                {
-                    id = client.Id.ToString(),
-                    AgeRange = client.AgeRange,
-                    CountryCode = client.CountryCode,
-                    FirstName = client.FirstName,
-                    LastName = client.LastName,
-                    MiddleName = client.MiddleName,
-                    PhoneNumber = client.PhoneNumber,
-                    State = client.State,
-                    Region = client.Region,
-                    Email = client.Email,
-                    Location = new System.Drawing.Point((int)client.Location.X, (int)client.Location.Y)
-                }).ToList();  // Ensure the list is fully materialized here
+                var list = clients.Select(client => new ClientDto(client));
+              
 
-                return new Result<List<ClientDto>>(true) { Model = list };
+                return new Result<List<ClientDto>>(true) { Model = list.ToList() };
             }
             catch (Exception ex)
             {
@@ -157,19 +136,7 @@ namespace Nafibel.Services.Implematations
                     return new Result<ClientDto>(false, $"Client with Id {id} not found ");
                 }
 
-                var response = new ClientDto()
-                {
-                    id = client.Id.ToString(),
-                    AgeRange = client.AgeRange,
-                    CountryCode = client.CountryCode,
-                    FirstName = client.FirstName,
-                    LastName = client.LastName,
-                    MiddleName = client.MiddleName,
-                    PhoneNumber = client.PhoneNumber,
-                    State = client.State,
-                    Region = client.Region,
-                    Email = client.Email,
-                };
+                var response = new ClientDto(client);
 
 
                 return new Result<ClientDto>(true) { Model = response };
@@ -181,4 +148,4 @@ namespace Nafibel.Services.Implematations
             }
         }
     }
-    }
+}

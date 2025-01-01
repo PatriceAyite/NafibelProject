@@ -12,7 +12,7 @@ namespace Nafibel.Services.Dtos
 {
     public class ClientDto
     {
-        public string? id { get; set; }
+        public Ulid id { get; set; }
         public string Email { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
@@ -23,5 +23,26 @@ namespace Nafibel.Services.Dtos
         public string Region { get; set; } = string.Empty;
         public Point Location { get; set; } = default!;
         public AgeRangeNum AgeRange { get; set; }
+
+
+        public ClientDto(Client client) 
+        {
+            id = client.Id;
+            AgeRange = client.AgeRange;
+            CountryCode = client.CountryCode;
+            FirstName = client.FirstName;
+            LastName = client.LastName;
+            MiddleName = client.MiddleName;
+            PhoneNumber = client.PhoneNumber;
+            State = client.State;
+            Region = client.Region;
+            Email = client.Email;
+            Location = new System.Drawing.Point((int)client.Location.X, (int)client.Location.Y);
+        }  
+
+        public  ClientDto() 
+        { 
+
+        }
     }
 }
